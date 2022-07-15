@@ -1,0 +1,36 @@
+{
+    "name": "happyphper/tcaptcha",
+    "description": "TCaptcha",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Happyphper\\Tcaptcha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Happyphper\\Tcaptcha\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Baron"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "tencentcloud/tencentcloud-sdk-php": "^3.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Happyphper\\Tcaptcha\\TCaptchaServiceProvider"
+            ],
+            "alias": {
+                "TCaptcha": "Happyphper\\Tcaptcha\\Facades\\TCaptcha"
+            }
+        }
+    }
+}
