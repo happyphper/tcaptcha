@@ -1,13 +1,13 @@
 <?php
 
-namespace Happyphper\TCaptcha\Facades;
+namespace Happyphper\TCaptcha;
 
 use Illuminate\Support\Facades\Facade;
 
-class TCaptcha extends Facade
+class TCaptchaFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'tcaptcha';
+        return TCaptcha::class;
     }
 }

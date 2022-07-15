@@ -4,12 +4,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Happyphper\\Tcaptcha\\": "src/"
+            "Happyphper\\TCaptcha\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Happyphper\\Tcaptcha\\Tests\\": "tests/"
+            "Happyphper\\TCaptcha\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -26,10 +26,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Happyphper\\Tcaptcha\\TCaptchaServiceProvider"
+                "Happyphper\\TCaptcha\\TCaptchaServiceProvider"
             ],
-            "alias": {
-                "TCaptcha": "Happyphper\\Tcaptcha\\Facades\\TCaptcha"
+            "aliases": {
+                "TCaptcha": "Happyphper\\TCaptcha\\TCaptchaFacade"
             }
         }
     }

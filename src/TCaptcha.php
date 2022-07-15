@@ -74,12 +74,7 @@ class TCaptcha
 
             $resp = $this->client->DescribeCaptchaResult($req);
 
-            $resp->toJsonString();
-
-            return [
-                'ok'  => $resp->getCaptchaCode() === 1,
-                'raw' => $resp,
-            ];
+            return [$resp->getCaptchaCode() === 1, json_decode($resp->toJsonString(), true)];
         } catch (TencentCloudSDKException $exception) {
             throw new HttpException($exception->getMessage(), $exception->getRequestId(), $exception->getPrevious());
         }

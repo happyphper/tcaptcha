@@ -29,30 +29,47 @@ TENCENT_CAPTCHA_REGION=ap-beijing
 
 4. Use 使用
 
-```
-    try {
-        $params = \Happyphper\TCaptcha\ReqParams::fromArray([
-            'CaptchaType' => 9,
-            'Ticket'      => "t03Luf5ZBWSMx9ukgVy06PI_2iiO_o4MCSZhLERRya4WL46L68ulKme-4j_wJuzr6gbMP2ez4VvNxgZ6oAKFv5dySH7GxpptcZU88wIW3vG9mIOCn7LGbBJuw**",
-            'UserIp'      => request()->ip(),
-            'Randstr'     => "@ibL",
-        ]);
+```php
+<?php
 
-        [$ok, $response] = app('tcaptcha')->Validate($params);
-        
-        // true
-        dump($ok);
+namespace App\Http\Controllers;
 
-        // {"CaptchaCode":1,"CaptchaMsg":"OK","EvilLevel":0,"GetCaptchaTime":0,"RequestId":"d42a0113-b51c-4ff5-bfd9-cca215d3dcc4"}
-        dump($response);
+use Happyphper\TCaptcha\TCaptchaFacade;
+use Happyphper\TCaptcha\Requests\Params;
 
-    } catch (\Happyphper\TCaptcha\ParamException $exception) {
-        // Miss Parameters 参数缺失
+class TestController extends Controller
+{
+    public function __invoke()
+    {
+        try {
+            $params = Params::fromArray([
+                'CaptchaType' => 9,
+                'Ticket'      => "t03Luf5ZBWSMx9ukgVy06PI_2iiO_o4MCSZhLERRya4WL46L68ulKme-4j_wJuzr6gbMP2ez4VvNxgZ6oAKFv5dySH7GxpptcZU88wIW3vG9mIOCn7LGbBJuw**",
+                'UserIp'      => request()->ip(),
+                'Randstr'     => "@ibL",
+            ]);
 
-    } catch (\Happyphper\TCaptcha\HttpException $exception) {
-        // TencentCloud Server Error
+            [$ok, $response] = TCaptchaFacade::Validate($params);
 
+//             true
+            info("ok", compact('ok'));
+
+//             {"CaptchaCode":1,"CaptchaMsg":"OK","EvilLevel":0,"GetCaptchaTime":0,"RequestId":"d42a0113-b51c-4ff5-bfd9-cca215d3dcc4"}
+//             {"CaptchaCode":8,"CaptchaMsg":"ticket expired 详情请参考：腾讯云-天御验证码-产品文档，搜索关键字“DescribeCaptchaResult”，查看输出参数中CaptchaCode字段的具体描述","EvilLevel":0,"GetCaptchaTime":1657889311,"RequestId":"5f53d27a-7283-4d21-af49-8e72dfcfe9fd"} 
+            info("response", $response);
+
+        } catch (\Happyphper\TCaptcha\Exceptions\ParamException $exception) {
+            // Miss Parameters 参数缺失
+            info("ParamException", $exception);
+        } catch (\Happyphper\TCaptcha\Exceptions\HttpException $exception) {
+            // TencentCloud Server Error
+            info("HttpException", $exception);
+        }
+
+        return response()->json(['message' => 'ok']);
     }
+}
+
 ```
 
 ## Params Description 参数说明

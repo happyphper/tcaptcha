@@ -13,7 +13,7 @@ class TCaptchaServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom($this->configPath(), 'tcaptcha');
 
-        $this->app->singleton('tcaptcha', function () {
+        $this->app->singleton(TCaptcha::class, function () {
             return new TCaptcha();
         });
     }
